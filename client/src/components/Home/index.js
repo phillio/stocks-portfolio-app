@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { getStocks } from '../../services/apiService'
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        user: null
+        stocks: {}
     }
   }
 
   render() {
+      getStocks('AAPL')
     return (
       <div className="home-container">
         <div>

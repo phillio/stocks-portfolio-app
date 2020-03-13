@@ -1,6 +1,7 @@
 import axios from 'axios'
+require('dotenv').config()
 const BASE_URL = 'http://localhost:8001'
-
+const secret = process.env.REACT_APP_API_KEY
 const JWT_TOKEN = localStorage.getItem('token')
 
 const api = axios.create({
@@ -43,6 +44,28 @@ export const signup = async ( data ) => {
         const { token } = response.data
         
         localStorage.setItem('token', token)
+    } catch (error) {
+        throw error
+    }
+}
+
+
+export const getStocks = async (token) => {
+    try {
+        const response = await fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${token}&types=quote&token=${secret}`, {
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin':'*'
+            }
+        })
+        const data = await response.json
+        console.log(response, data)
+
+
+
+
+
+        
     } catch (error) {
         throw error
     }
