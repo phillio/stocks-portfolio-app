@@ -11,6 +11,7 @@ import { login, getProfile, signup } from './services/apiService'
 import authService from './services/authService';
 // Css
 import './App.css';
+import ProtectedRoute from './components/ProtectedRoute';
 
 class App extends React.Component {
   constructor(props) {
@@ -98,7 +99,12 @@ class App extends React.Component {
         </nav>
 
         <main>
-          <Route exact path="/" user={user} component={Home} />
+          {/* <Route exact path="/" user={user} component={ProtectedRoute} /> */}
+          <ProtectedRoute
+            exact path="/"
+            user={user}
+            component={Home}
+          />
           <Route
             path="/login"
             render={(props) =>

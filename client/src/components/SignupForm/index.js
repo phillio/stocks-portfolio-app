@@ -16,19 +16,24 @@ class SignupForm extends React.Component {
   handleSubmitForm = async (event) => {
     event.preventDefault()
 
-    const { name, email, password } = this.state
-    const { handleSignup } = this.props
+    const { email, password } = this.state
+    const { handleLogin } = this.props
 
     try {
-      await handleSignup({name, email, password})
+      await handleLogin({email, password})
     }
     catch(e) {
     //   throw e
+    // this.setState(state=>{
+    //     return {showError: true}
+    // }, () => {
+    //     throw e
+    // })
+
     this.setState(state=>{
         return {showError: true}
-    }, () => {
-        throw e
     })
+
     }
   }
 
@@ -49,7 +54,8 @@ class SignupForm extends React.Component {
     if (showError) {
         errorMessage = ( 
             <div className="errorMessage">
-                <span>An error occured, plese try again</span>
+                <h3>Error, please try again</h3>
+                <p>Please make sure you sign up with a valid email address</p>
             </div>
         )
     }
