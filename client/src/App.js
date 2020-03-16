@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Transactions from './components/Transactions'
 // Helper functions
-import { login, getProfile, signup } from './services/apiService'
+import { login, getProfile, signup, getStocks, getStock } from './services/apiService'
 import authService from './services/authService';
 // Css
 import './App.css';
@@ -103,6 +103,8 @@ class App extends React.Component {
           <ProtectedRoute
             exact path="/"
             user={user}
+            getStock={getStock}
+            getSTocks={getStocks}
             component={Home}
           />
           <Route

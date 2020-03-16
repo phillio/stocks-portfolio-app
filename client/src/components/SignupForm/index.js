@@ -16,11 +16,11 @@ class SignupForm extends React.Component {
   handleSubmitForm = async (event) => {
     event.preventDefault()
 
-    const { email, password } = this.state
-    const { handleLogin } = this.props
+    const { name, email, password } = this.state
+    const { handleSignup } = this.props
 
     try {
-      await handleLogin({email, password})
+      await handleSignup({ name, email, password })
     }
     catch(e) {
     //   throw e

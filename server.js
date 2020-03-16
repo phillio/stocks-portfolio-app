@@ -38,6 +38,7 @@ app.get('/', async (request, response) => {
 })
 
 app.use((err, req, res, next) => {
+  console.log('serverjs')
   res.status(500).json({message: err.message})
 })
 

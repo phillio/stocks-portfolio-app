@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getStocks } from '../../services/apiService'
+import { getProfile, buyStock, buyStockAgain } from '../../services/apiService'
 
 class Home extends Component {
   constructor(props) {
@@ -9,8 +9,14 @@ class Home extends Component {
     }
   }
 
+  componentDidMount = async() => {
+    await getProfile()
+      await buyStock({"symbol": "NFLX", "shares": "10", "price": 100})
+      await buyStock({"symbol": "AAPL", "shares": "50", "price": 500})
+      await buyStock({"symbol": "FB", "shares": "100", "price": 1000})
+  }
+
   render() {
-      getStocks('AAPL')
     return (
       <div className="home-container">
         <div>
