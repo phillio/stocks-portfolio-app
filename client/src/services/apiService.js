@@ -51,11 +51,12 @@ export const signup = async ( data ) => {
 }
 
 
-export const getStock = async (token) => {
+export const getStock = async (symbol) => {
     try {
-        let response = await fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${token}&types=quote&token=${secret}`)
+        let response = await fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${symbol}&types=quote&token=${secret}`)
         let data = await response.json()
-        return data
+        const stockQuote = data[symbol].quote
+        return stockQuote
     } catch (error) {
         throw error
     }
@@ -64,7 +65,7 @@ export const getStock = async (token) => {
 
 export const getStocks = () => {
     try {
-        return symbols        
+        console.log('might not need this')        
     } catch (error) {
         throw error
     }
@@ -73,15 +74,16 @@ export const getStocks = () => {
 
 export const buyStock = async (dataToSend) => {
     try {
+        // console.log(dataToSend)
         // console.log('getting user id')
         const response = await api.get('/app/profile/')
         let { user } = response.data
         // console.log(response)
-        console.log('1st time gettin user id',user)
+        // console.log('1st time gettin user id',user)
         
         // console.log('buying stock')
         const id = user.id
-        user.transactions.push(dataToSend)
+        user.transactions.unshift(dataToSend)
 
 
         // console.log(user.portfolio.filter(el=>{return el.symbol === dataToSend.symbol}))
@@ -144,16 +146,17 @@ export const buyStock = async (dataToSend) => {
 
 
         if(user.portfolio.some(el => el.symbol === dataToSend.symbol)){
-            console.log('stock found');
+            // console.log('stock found');
             await user.portfolio.map(el=>{
                 if (el.symbol === dataToSend.symbol){
                     el.shares = parseInt(el.shares) + parseInt(dataToSend.shares)
                 }
             })
         } else{
-            console.log('stock not found');
+            // console.log('stock not found');
             user.portfolio.push({symbol: dataToSend.symbol, shares: parseInt(dataToSend.shares)})
         }
+
 
 
 
@@ -175,10 +178,11 @@ export const buyStock = async (dataToSend) => {
         // }
 
 
-
-
+        const changeToWallet = parseInt(dataToSend.shares) * parseInt(dataToSend.price)
+        user.money = parseInt(user.money) - parseInt(changeToWallet)
+        // console.log(changeToWallet, user.money)
         const update = await api.put(`/app/transactions/${id}`, user)
-        console.log('after update', update)
+        console.log('after update', dataToSend.symbol, update.data.user.portfolio)
         // console.log('TX', update.transactions)
 
         return user

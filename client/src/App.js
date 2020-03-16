@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Transactions from './components/Transactions'
 // Helper functions
-import { login, getProfile, signup, getStocks, getStock } from './services/apiService'
+import { login, getProfile, signup, getStocks, getStock, buyStock } from './services/apiService'
 import authService from './services/authService';
 // Css
 import './App.css';
@@ -19,20 +19,22 @@ class App extends React.Component {
 
     this.state = {
       isSignedIn: false,
-      user: {}
+      user: {},
+      portfolio: [],
+      transactions: {}
     }
   }
 
   async componentDidMount() {
     try {
       const fetchUser = await getProfile()
-
       this.setState(state => {
         return {
           isSignedIn: authService.isAuthenticated(),
           user: fetchUser
         }
       })
+      this.loadPortfolio()
     } catch (e) {
       throw e
     }
@@ -72,13 +74,30 @@ class App extends React.Component {
     this.setState(state=>{
       return{
         isSignedIn: false,
-        user: {}
+        user: {},
+        transactions: {},
+        portfolio: {},
       }
     })
   }
 
+
+  loadPortfolio = async () => {
+    const userData = await getProfile()
+    this.setState({portfolio: userData.portfolio, transactions: userData.transactions})
+  //   await userData.map(el=>{
+  //       console.log(el.symbol, ': ', el.shares)
+
+  //       return(
+  //           <div>
+  //               <p>{el.symbol} - {el.shares}</p>
+  //           </div>
+  //       )
+  //   })
+}
+
   render() {
-    const { isSignedIn, user } = this.state
+    const { isSignedIn, user, portfolio, transactions } = this.state
     return (
       <div className="App">
         <nav>
@@ -86,7 +105,12 @@ class App extends React.Component {
 
           {
             isSignedIn &&
-            <div><Link to="/">Home</Link></div>
+            <div><Link to="/">Portfolio</Link></div>
+          }
+
+          {
+            isSignedIn &&
+            <div><Link to="/transactions">Transactions</Link></div>
           }
 
           {
@@ -104,7 +128,10 @@ class App extends React.Component {
             exact path="/"
             user={user}
             getStock={getStock}
-            getSTocks={getStocks}
+            getStocks={getStocks}
+            buyStock={buyStock}
+            portfolio={portfolio}
+            transactions={transactions}
             component={Home}
           />
           <Route
@@ -122,7 +149,7 @@ class App extends React.Component {
           <Route
             path="/transactions"
             render={(props) =>
-              <Transactions {...props} user={user} isSignedIn={isSignedIn} />
+              <Transactions {...props} user={user} isSignedIn={isSignedIn} transactions={transactions}/>
             }
           />
         </main>

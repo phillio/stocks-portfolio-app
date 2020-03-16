@@ -21,6 +21,7 @@ class SignupForm extends React.Component {
 
     try {
       await handleSignup({ name, email, password })
+      window.location.reload()
     }
     catch(e) {
     //   throw e

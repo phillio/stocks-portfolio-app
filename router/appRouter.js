@@ -20,10 +20,10 @@ appRouter.put('/transactions/:id', passport.authenticate('jwt', { session: false
         const id = req.params.id
         const findUser = await User.findOne({where: {id: id}})
         if (findUser) {
-            await findUser.update({portfolio: req.body.portfolio, transactions: req.body.transactions})
-            console.log('-----')
-            console.log(findUser)
-            console.log('-----')
+            await findUser.update({money: req.body.money, portfolio: req.body.portfolio, transactions: req.body.transactions})
+            // console.log('-----')
+            // console.log(findUser)
+            // console.log('-----')
         }
         res.json({ user: findUser.dataValues, message: 'update possible?'})
 

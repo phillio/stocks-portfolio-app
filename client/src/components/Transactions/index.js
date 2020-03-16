@@ -1,11 +1,24 @@
 import React from 'react';
 
 function Transactions(props) {
-    return (
-        <div className="transactions-container" >
-            <h1>Transactions</h1>
-        </div>
-    )
+    // console.log(props)
+    if (props.transactions.length > 0) {
+        return(
+            props.transactions.map(el=>{
+                
+                return (
+                    <div>
+                        <p>BUY ({el.symbol.replace(/"/g, '')}) - {el.shares} shares @ {el.price}</p>
+                    </div>
+                )
+            })
+        )
+    } else {
+        return (
+            <p>Transactions</p>
+        )
+    }
+    
 }
 
 export default Transactions
