@@ -122,6 +122,7 @@ class App extends React.Component {
         </nav>
 
         <main className="app-body" >
+          {/* <h1 className="app-header" >Stocks Portfolio App</h1> */}
           {/* <Route exact path="/" user={user} component={ProtectedRoute} /> */}
           <ProtectedRoute
             exact path="/"
