@@ -24,13 +24,13 @@ Buying stock will also live update your wallet amount.
 ------------------------------
 
 Notes: 
--Portfolio page will list stocks in order they were purchased (oldeest at top).
--Transactions page is the reverse, where the newest purchases are at the top.
--App is currently using API calls to IEX Cloud's sandbox for testing; as such stock prices are randomly generated and NOT the current prices.
--App is currently at MVP (Minimum Viable Product) and will be updated; this is NOT a final product.
+<br/>-Portfolio page will list stocks in order they were purchased (oldeest at top).
+<br/>-Transactions page is the reverse, where the newest purchases are at the top.
+<br/>-App is currently using API calls to IEX Cloud's sandbox for testing; as such stock prices are randomly generated and NOT the current prices.
+<br/>-App is currently at MVP (Minimum Viable Product) and will be updated; this is NOT a final product.
 
 To-do:
--Do more with CSS
--Add more functionality (drop-down list for purchasing stocks, list out latest prices for stocks in user's portfolio vs prices they were bought at, add links to IEX Cloud, fix random log outs due to state/prop update speeds, etc )
+<br/>-Do more with CSS
+<br/>-Add more functionality (drop-down list for purchasing stocks, list out latest prices for stocks in user's portfolio vs prices they were bought at, add links to IEX Cloud, fix random log outs due to state/prop update speeds, etc )
 
 Thank you.
