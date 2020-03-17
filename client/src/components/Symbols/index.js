@@ -3,10 +3,15 @@
 // only symbols are exported at bottom of page with a map function
 
 // const symbols = symbolData.map(el=>{
-//     return el['symbol']
-// })
+    //     return el['symbol']
+    // })
+    
+    // export default { symbols }
+    
 
-// export default { symbols }
+    
+// edit: did not have time to implement a dropdown list as user types
+
 
 const symbolData = [
     {

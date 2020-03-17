@@ -3,52 +3,11 @@ import { getProfile, buyStock, buyStockAgain, getStock } from '../../services/ap
 import Portfolio from '../Portfolio'
 import Purchase from '../Purchase'
 
+import './Home.css';
+
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        // portfolio: null,
-        // transactions: null,
-        // price: null,
-    }
-  }
-
-//   loadPortfolio = async () => {
-//       const userData = await getProfile()
-//       this.setState({portfolio: userData.portfolio, transactions: userData.transactions})
-//     //   await userData.map(el=>{
-//     //       console.log(el.symbol, ': ', el.shares)
-
-//     //       return(
-//     //           <div>
-//     //               <p>{el.symbol} - {el.shares}</p>
-//     //           </div>
-//     //       )
-//     //   })
-//   }
-
-
-
-
-
-    componentDidMount = async () => {
-  //     //   await getProfile()
-  //     //   await buyStock({"symbol": "NFLX", "shares": "10", "price": 100})
-      //   await buyStock({"symbol": "AAPL", "shares": "50", "price": 500})
-  //     //   await buyStock({"symbol": "FB", "shares": "100", "price": 1000})
-  
-    //   await this.loadPortfolio()
-    //   await this.getStockPrices()
-    //   await this.readState()
-    }
-
-    componentDidUpdate = async () => {
-        // console.log(this.state)
-    }
-
 
   render() {
-    //   console.log('home props', this.props)
       const portfolio = this.props.portfolio
       const priceArray = this.props.priceArray
       const transactions = this.props.transactions
@@ -58,18 +17,20 @@ class Home extends Component {
       }
     return (
       <div className="home-container">
-        <div>
-            <h3>Portfolio(${wallet})</h3>
-            {/* <p>Stock API Data here</p> */}
-            {portfolio[0] 
-                ? <Portfolio 
-                    portfolio={portfolio} 
-                    priceArray={priceArray}
-                    getStock={this.props.getStock} /> 
-                : <p>Portfolio</p>
-            }
+        <div className="portfolio-container" >
+            <h1 className="portfolio-list-header" >Portfolio</h1>
+            <h3 className="portfolio-list-wallet" >(${wallet} left in wallet)</h3>
+            <ul className="portfolio-list" >
+              {portfolio[0] 
+                  ? <Portfolio 
+                      portfolio={portfolio} 
+                      priceArray={priceArray}
+                      getStock={this.props.getStock} /> 
+                  : <p>Portfolio</p>
+              }
+            </ul>
         </div>
-        <div>
+        <div className="purchase-container" >
             <Purchase 
                 portfolio={portfolio} 
                 transactions={transactions} 

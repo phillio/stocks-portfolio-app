@@ -17,13 +17,6 @@ authRouter.post('/login', (req, res, next) => {
                 error.status = 400
                 return next(error)
             }
-
-            // req.login(user, { session: false }, async (error) => {
-            //     if (error) return next(error)
-            //     return res.json({user})
-            // })
-            // above is where "single signup" would occur with a "true" and a lot more work elsewhere
-
             req.login(user, { session: false }, async (error) => {
                 if (error) {
                     console.log('HERE')
@@ -58,9 +51,6 @@ authRouter.post('/signup', (req, res, next) => {
             
             const { name, email, id } = user
             const payload = { name, email, id }
-
-            // const { email, id } = user
-            // const payload = { email, id }
 
             const token = jwtSign(payload)
             return res.json({user, token, message: info.message })

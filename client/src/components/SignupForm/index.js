@@ -24,16 +24,9 @@ class SignupForm extends React.Component {
       window.location.reload()
     }
     catch(e) {
-    //   throw e
-    // this.setState(state=>{
-    //     return {showError: true}
-    // }, () => {
-    //     throw e
-    // })
-
-    this.setState(state=>{
-        return {showError: true}
-    })
+      this.setState(state=>{
+          return {showError: true}
+      })
 
     }
   }

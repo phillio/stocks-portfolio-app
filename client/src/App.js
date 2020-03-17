@@ -7,7 +7,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Transactions from './components/Transactions'
 // Helper functions
-import { login, getProfile, signup, getStocks, getStock, buyStock } from './services/apiService'
+import { login, getProfile, signup, getStocks, getStock, buyStock, depositMoney } from './services/apiService'
 import authService from './services/authService';
 // Css
 import './App.css';
@@ -37,7 +37,6 @@ class App extends React.Component {
         }
       })
       this.loadPortfolio()
-      // this.getStockPrices()
     } catch (e) {
       throw e
     }
@@ -85,84 +84,44 @@ class App extends React.Component {
     })
   }
 
-
-//   getStockPrices = async () => {
-//     let newPortfolio = []
-//     // console.log('GSP',this.state)
-//     await this.state.portfolio.map(async el=>{
-//         // console.log(el)
-//         const noString = el.symbol.replace(/"/g, '')
-//         const stockPriceAPI = await getStock(noString)
-//         const price = stockPriceAPI.latestPrice
-//         newPortfolio.push({symbol: noString, shares: el.shares, price: price})
-//         // console.log(price)
-//     })
-//     // console.log('newportowithprice',newPortfolio)
-//     this.setState({portfolioWithPrice: newPortfolio, updated: true})
-// }
-
   loadPortfolio = async () => {
     const userData = await getProfile()
 
     let newPortfolio = []
     userData.portfolio.map(async el => {
-      // const noString = el.symbol.replace(/"/g, '')
       const stockPriceAPI = await getStock(el.symbol.replace(/"/g, ''))
       const price = stockPriceAPI.latestPrice
       newPortfolio.push({symbol: el.symbol, shares: el.shares, price: price})
       return newPortfolio
     })
-
-
     this.setState({portfolio: userData.portfolio, transactions: userData.transactions, priceArray: newPortfolio})
-
-
-
-
-
-
-
-
-  //   await userData.map(el=>{
-  //       console.log(el.symbol, ': ', el.shares)
-
-  //       return(
-  //           <div>
-  //               <p>{el.symbol} - {el.shares}</p>
-  //           </div>
-  //       )
-  //   })
 }
 
 
   render() {
-    // console.log('state', this.state)
     const { isSignedIn, user, portfolio, transactions, priceArray } = this.state
     return (
-      <div className="App">
-        <nav>
-          {/* <div><Link to="/">Portfolio</Link></div> */}
-
+      <div className="app">
+        <nav className="nav-bar-container" >
           {
             isSignedIn &&
-            <div><Link to="/">Portfolio</Link></div>
+            <div className="nav-bar-link" ><Link to="/">Portfolio</Link></div>
           }
-
           {
             isSignedIn &&
-            <div><Link to="/transactions">Transactions</Link></div>
+            <div className="nav-bar-link" ><Link to="/transactions">Transactions</Link></div>
           }
 
           {
             !isSignedIn ? (
-              <div><Link to="/login">Login</Link></div>
+              <div className="nav-bar-link" ><Link to="/login">Login</Link></div>
             ) : (
-              <button onClick={this.signOutUser} >Sign Out</button>
+              <button className="nav-bar-link" id="nav-bar-button" onClick={this.signOutUser} >Sign Out</button>
             )
           }
         </nav>
 
-        <main>
+        <main className="app-body" >
           {/* <Route exact path="/" user={user} component={ProtectedRoute} /> */}
           <ProtectedRoute
             exact path="/"
@@ -178,20 +137,37 @@ class App extends React.Component {
           <Route
             path="/login"
             render={(props) =>
-              <Login {...props} handleLogin={this.loginUser} isSignedIn={isSignedIn} />
+              <Login {...props} 
+              handleLogin={this.loginUser} 
+              isSignedIn={isSignedIn}
+              />
             }
           />
           <Route
             path="/signup"
             render={(props) =>
-              <Signup {...props} handleSignup={this.signupUser} isSignedIn={isSignedIn} />
+              <Signup {...props} 
+              handleSignup={this.signupUser} 
+              isSignedIn={isSignedIn}
+              />
             }
           />
-          <Route
+          {/* <ProtectedRoute
             path="/transactions"
             render={(props) =>
-              <Transactions {...props} user={user} isSignedIn={isSignedIn} transactions={transactions}/>
-            }
+              <Transactions {...props} 
+              user={user} 
+              isSignedIn={isSignedIn} 
+              transactions={transactions}
+              depositMoney={depositMoney}
+              /> */}
+          <ProtectedRoute
+            path="/transactions"
+            user={user} 
+            isSignedIn={isSignedIn} 
+            transactions={transactions}
+            depositMoney={depositMoney}
+            component={Transactions}
           />
         </main>
       </div>

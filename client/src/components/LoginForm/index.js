@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -20,14 +20,9 @@ class LoginForm extends React.Component {
 
     try {
       await handleLogin({email, password})
+      window.location.reload()
     }
     catch(e) {
-    //   throw e
-    // this.setState(state=>{
-    //     return {showError: true}
-    // }, () => {
-    //     throw e
-    // })
 
     this.setState(state=>{
         return {showError: true}
