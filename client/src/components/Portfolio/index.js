@@ -1,4 +1,5 @@
 import React from 'react';
+import './Portfolio.css';
 
 function Portfolio(props) {
     
@@ -10,16 +11,12 @@ function Portfolio(props) {
 
     const withPrice = props.portfolio.map(el=>{
         return (
-            <div>
-                <p>{el.symbol.replace(/"/g, '')} - {el.shares} {el.shares > 1 ? 'shares' : 'share' } {el.price}</p>
-            </div>
+            <li className="portfolio-list-item" >{el.symbol.replace(/"/g, '')} - {el.shares} {el.shares > 1 ? 'shares' : 'share' } {el.price}</li>
         )
     })
     const withPriceTwo = props.priceArray.map(el=>{
         return (
-            <div>
-                <p>{el.symbol.replace(/"/g, '')} - {el.shares} {el.shares > 1 ? 'shares' : 'share' } {el.price}</p>
-            </div>
+                <p className="portfolio-list-item" >{el.symbol.replace(/"/g, '')} - {el.shares} {el.shares > 1 ? 'shares' : 'share' } {el.price}</p>
         )
     })
     return(

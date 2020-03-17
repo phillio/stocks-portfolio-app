@@ -22,8 +22,20 @@ appRouter.put('/transactions/:id', passport.authenticate('jwt', { session: false
         if (findUser) {
             await findUser.update({money: req.body.money, portfolio: req.body.portfolio, transactions: req.body.transactions})
         }
-        res.json({ user: findUser.dataValues, message: 'update possible?'})
+        res.json({ user: findUser.dataValues, message: 'stocks bought'})
     }
 )
+
+appRouter.put('/money/:id', passport.authenticate('jwt', { session: false } ),
+    async (req, res) => {
+        const id = req.params.id
+        const findUser = await User.findOne({where: {id: id}})
+        if (findUser) {
+            await findUser.update({money: req.body.money})
+        }
+        res.json({ user: findUser.dataValues, message: 'money deposited'})
+    }
+)
+
 
 module.exports = appRouter

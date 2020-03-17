@@ -1,4 +1,5 @@
 import React from 'react';
+import './Purchase.css'
 
 class Purchase extends React.Component {
       constructor(props) {
@@ -57,36 +58,33 @@ class Purchase extends React.Component {
         const {showError} = this.state
         let errorMessage
         if (showError) {
-            errorMessage = ( 
-                <div className="errorMessage">
-                    <h3>Error, please try again</h3>
-                    <p>Incorrect stock symbol or insufficient funds</p>
-                </div>
-            )
+            errorMessage = alert('Incorrect stock symbol or insufficient funds')
+            window.location.reload()
         }
         return (
-            <div>
+            <div className="purchase-form-container" >
                 {errorMessage}
-                <form className="form" onSubmit={this.handleSubmitForm}>
-                    <div>
+                <form className="form" className="purchase-form" onSubmit={this.handleSubmitForm}>
+                    <div className="purchase-form-field" >
                         <label>Stock Symbol</label>
-                        <input
+                        <input className="purchase-form-field-box"
                         type="text"
                         name="symbol"
+                        placeholder="i.e. AAPL, NFLX, FB"
                         onChange={this.handleTextInput}
                         value={this.state.symbol}
                         />
                     </div>
-                    <div>
+                    <div className="purchase-form-field" >
                         <label>Quantity</label>
-                        <input
+                        <input className="purchase-form-field-box"
                         type="text"
                         name="share"
                         onChange={this.handleTextInput}
                         value={this.state.share}
                         />
                     </div>
-                    <button>Buy</button>
+                    <button className="purchase-form-button" >Buy</button>
                 </form>
             </div>
         )

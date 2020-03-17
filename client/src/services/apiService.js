@@ -87,12 +87,23 @@ export const buyStock = async (dataToSend) => {
         }
         const changeToWallet = parseInt(dataToSend.shares) * parseInt(dataToSend.price)
         user.money = parseInt(user.money) - parseInt(changeToWallet)
-        const update = await api.put(`/app/transactions/${id}`, user)
-        console.log('after update', dataToSend.symbol, update.data.user.portfolio)
-
+        await api.put(`/app/transactions/${id}`, user)
         return user
     } catch (error) {
         console.log('buying error')
        throw error
+    }
+}
+
+
+export const depositMoney = async (money) => {
+    try {
+        const response = await api.get('/app/profile/')
+        let { user } = response.data
+        const id = user.id
+        user.money = parseInt(user.money) + parseInt(money)
+        await api.put(`/app/money/${id}`, user)
+    } catch (error) {
+        throw error
     }
 }

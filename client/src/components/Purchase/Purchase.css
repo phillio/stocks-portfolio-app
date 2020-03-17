@@ -1,0 +1,25 @@
+.purchase-form-container, .purchase-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.purchase-form-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-form-field-box {
+    width: 75%;
+}
+
+.purchase-form-button {
+    align-self: flex-end;
+    width: 50px;
+}
+
+.errorMessage {
+    background-color: white;
+    color: red;
+    margin: 10px;
+}

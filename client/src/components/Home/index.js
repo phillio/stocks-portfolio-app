@@ -3,6 +3,8 @@ import { getProfile, buyStock, buyStockAgain, getStock } from '../../services/ap
 import Portfolio from '../Portfolio'
 import Purchase from '../Purchase'
 
+import './Home.css';
+
 class Home extends Component {
 
   render() {
@@ -15,17 +17,20 @@ class Home extends Component {
       }
     return (
       <div className="home-container">
-        <div>
-            <h3>Portfolio(${wallet})</h3>
-            {portfolio[0] 
-                ? <Portfolio 
-                    portfolio={portfolio} 
-                    priceArray={priceArray}
-                    getStock={this.props.getStock} /> 
-                : <p>Portfolio</p>
-            }
+        <div className="portfolio-container" >
+            <h1 className="portfolio-list-header" >Portfolio</h1>
+            <h3 className="portfolio-list-wallet" >(${wallet} left in wallet)</h3>
+            <ul className="portfolio-list" >
+              {portfolio[0] 
+                  ? <Portfolio 
+                      portfolio={portfolio} 
+                      priceArray={priceArray}
+                      getStock={this.props.getStock} /> 
+                  : <p>Portfolio</p>
+              }
+            </ul>
         </div>
-        <div>
+        <div className="purchase-container" >
             <Purchase 
                 portfolio={portfolio} 
                 transactions={transactions} 
