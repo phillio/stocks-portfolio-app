@@ -1,0 +1,25 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.login-form-email, .login-form-password {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.login-form-email-field, .login-form-password-field {
+    width: 70%;
+}
+
+.login-button {
+    align-self: center;
+    width: 70px;
+}

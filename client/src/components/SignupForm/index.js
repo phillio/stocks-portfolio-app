@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import './SignupForm.css'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -61,30 +62,30 @@ class SignupForm extends React.Component {
     }
 
     return (
-      <div>
+      <div className="signup-form-wrapper" >
       {errorMessage}
-        <form className="form" onSubmit={this.handleSubmitForm}>
-          <div>
+        <form className="signup-form" onSubmit={this.handleSubmitForm}>
+          <div className="signup-form-name" >
             <label>Name</label>
-            <input
+            <input className="signup-form-name-field"
               type="text"
               name="name"
               onChange={this.handleTextInput}
               value={this.state.name}
             />
           </div>
-          <div>
+          <div className="signup-form-email" >
             <label>Email</label>
-            <input
+            <input className="signup-form-email-field"
               type="text"
               name="email"
               onChange={this.handleTextInput}
               value={this.state.email}
             />
           </div>
-          <div>
+          <div className="signup-form-password" >
             <label>Password</label>
-            <input
+            <input className="signup-form-password-field"
               type="password"
               name="password"
               onChange={this.handleTextInput}
@@ -92,7 +93,7 @@ class SignupForm extends React.Component {
             />
           </div>
 
-          <button>Sign Up</button>
+          <button className="signup-button">Sign Up</button>
         </form>
       </div>
     )
