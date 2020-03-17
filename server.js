@@ -3,6 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 const passport = require('passport')
+const path = require('path')
 // const passport = require('./auth/auth')
 
 const authRouter = require('./router/authRouter')
