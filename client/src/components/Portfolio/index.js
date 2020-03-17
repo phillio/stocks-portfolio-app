@@ -2,16 +2,10 @@ import React from 'react';
 
 function Portfolio(props) {
     
-    
-    
-    
     // console.log('portfolioprops',props)
 
     // this was the issue for delay; could not get updated/latest prices 
     // for current stocks, to calculate a user's total value for their portfolio
-
-
-
 
 
     const withPrice = props.portfolio.map(el=>{

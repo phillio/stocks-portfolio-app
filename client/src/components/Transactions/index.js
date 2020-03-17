@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Transactions(props) {
-    // console.log(props)
     if (props.transactions.length > 0) {
         return(
             props.transactions.map(el=>{
