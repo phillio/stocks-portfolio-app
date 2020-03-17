@@ -4,7 +4,7 @@ const PortfolioModel = require('./portfolio');
 const bcrypt = require('bcrypt');
 
 
-const db = new Sequelize((process.env.DATABASE_URL || 'postgres://localhost:8001/stocks_portfolio_db'){
+const db = new Sequelize((process.env.DATABASE_URL || 'postgres://localhost:5432/stocks_portfolio_db'),{
     database: 'stocks_portfolio_db',
     dialect: 'postgres'
 });
