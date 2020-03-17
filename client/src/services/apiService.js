@@ -1,7 +1,7 @@
 import axios from 'axios'
 import symbols from '../components/Symbols'
 require('dotenv').config()
-const BASE_URL = 'http://localhost:8001'
+const BASE_URL = process.env.REACT_APP_HEROKU_DB
 const secret = process.env.REACT_APP_API_KEY
 const JWT_TOKEN = localStorage.getItem('token')
 
