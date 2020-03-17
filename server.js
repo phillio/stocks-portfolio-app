@@ -3,6 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 const passport = require('passport')
+const path = require('path')
 // const passport = require('./auth/auth')
 
 const authRouter = require('./router/authRouter')
@@ -41,5 +42,12 @@ app.use((err, req, res, next) => {
   console.log('serverjs')
   res.status(500).json({message: err.message})
 })
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () => console.log(`App is up and running listening on port ${PORT}`))
