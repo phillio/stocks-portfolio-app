@@ -21,6 +21,7 @@ class Purchase extends React.Component {
             // this.setState({price: priceCheck[stockSymbol].quote.latestPrice})
 
           } catch (error) {
+            this.setState({showError: true})
               throw error
           }
           const { symbol, share, price } = this.state
@@ -50,18 +51,19 @@ class Purchase extends React.Component {
           const { name, value } = event.target
 
           this.setState(state => {
-          return { [name]: value }
+          return { [name]: value.toUpperCase() }
           })
       }
       
       render() {
         const {showError} = this.state
+        console.log(showError)
         let errorMessage
         if (showError) {
             errorMessage = ( 
                 <div className="errorMessage">
                     <h3>Error, please try again</h3>
-                    <p>Please check stock symbol and if you have sufficient funds</p>
+                    <p>Incorrect stock symbol or insufficient funds</p>
                 </div>
             )
         }

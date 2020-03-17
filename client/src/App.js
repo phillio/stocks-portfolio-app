@@ -21,7 +21,9 @@ class App extends React.Component {
       isSignedIn: false,
       user: {},
       portfolio: [],
-      transactions: {}
+      transactions: {},
+      priceArray: [],
+      updated: false
     }
   }
 
@@ -35,6 +37,7 @@ class App extends React.Component {
         }
       })
       this.loadPortfolio()
+      // this.getStockPrices()
     } catch (e) {
       throw e
     }
@@ -76,15 +79,50 @@ class App extends React.Component {
         isSignedIn: false,
         user: {},
         transactions: {},
-        portfolio: {},
+        portfolio: [],
+        priceArray: []
       }
     })
   }
 
 
+//   getStockPrices = async () => {
+//     let newPortfolio = []
+//     // console.log('GSP',this.state)
+//     await this.state.portfolio.map(async el=>{
+//         // console.log(el)
+//         const noString = el.symbol.replace(/"/g, '')
+//         const stockPriceAPI = await getStock(noString)
+//         const price = stockPriceAPI.latestPrice
+//         newPortfolio.push({symbol: noString, shares: el.shares, price: price})
+//         // console.log(price)
+//     })
+//     // console.log('newportowithprice',newPortfolio)
+//     this.setState({portfolioWithPrice: newPortfolio, updated: true})
+// }
+
   loadPortfolio = async () => {
     const userData = await getProfile()
-    this.setState({portfolio: userData.portfolio, transactions: userData.transactions})
+
+    let newPortfolio = []
+    userData.portfolio.map(async el => {
+      // const noString = el.symbol.replace(/"/g, '')
+      const stockPriceAPI = await getStock(el.symbol.replace(/"/g, ''))
+      const price = stockPriceAPI.latestPrice
+      newPortfolio.push({symbol: el.symbol, shares: el.shares, price: price})
+      return newPortfolio
+    })
+
+
+    this.setState({portfolio: userData.portfolio, transactions: userData.transactions, priceArray: newPortfolio})
+
+
+
+
+
+
+
+
   //   await userData.map(el=>{
   //       console.log(el.symbol, ': ', el.shares)
 
@@ -96,8 +134,10 @@ class App extends React.Component {
   //   })
 }
 
+
   render() {
-    const { isSignedIn, user, portfolio, transactions } = this.state
+    // console.log('state', this.state)
+    const { isSignedIn, user, portfolio, transactions, priceArray } = this.state
     return (
       <div className="App">
         <nav>
@@ -131,6 +171,7 @@ class App extends React.Component {
             getStocks={getStocks}
             buyStock={buyStock}
             portfolio={portfolio}
+            priceArray={priceArray}
             transactions={transactions}
             component={Home}
           />

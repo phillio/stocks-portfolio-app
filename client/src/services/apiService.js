@@ -187,6 +187,7 @@ export const buyStock = async (dataToSend) => {
 
         return user
     } catch (error) {
+        console.log('buying error')
        throw error
     }
 }

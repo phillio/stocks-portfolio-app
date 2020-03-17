@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { getProfile, buyStock, buyStockAgain } from '../../services/apiService'
+import { getProfile, buyStock, buyStockAgain, getStock } from '../../services/apiService'
 import Portfolio from '../Portfolio'
 import Purchase from '../Purchase'
 
 class Home extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//         portfolio: null,
-//         transactions: null
-//     }
-//   }
+  constructor(props) {
+    super(props);
+    this.state = {
+        // portfolio: null,
+        // transactions: null,
+        // price: null,
+    }
+  }
 
 //   loadPortfolio = async () => {
 //       const userData = await getProfile()
@@ -26,18 +27,30 @@ class Home extends Component {
 //     //   })
 //   }
 
-  componentDidMount = async () => {
-//     //   await getProfile()
-//     //   await buyStock({"symbol": "NFLX", "shares": "10", "price": 100})
-    //   await buyStock({"symbol": "AAPL", "shares": "50", "price": 500})
-//     //   await buyStock({"symbol": "FB", "shares": "100", "price": 1000})
 
-//     // await this.loadPortfolio()
-  }
+
+
+
+    componentDidMount = async () => {
+  //     //   await getProfile()
+  //     //   await buyStock({"symbol": "NFLX", "shares": "10", "price": 100})
+      //   await buyStock({"symbol": "AAPL", "shares": "50", "price": 500})
+  //     //   await buyStock({"symbol": "FB", "shares": "100", "price": 1000})
+  
+    //   await this.loadPortfolio()
+    //   await this.getStockPrices()
+    //   await this.readState()
+    }
+
+    componentDidUpdate = async () => {
+        // console.log(this.state)
+    }
+
 
   render() {
     //   console.log('home props', this.props)
       const portfolio = this.props.portfolio
+      const priceArray = this.props.priceArray
       const transactions = this.props.transactions
       let wallet 
       if (this.props.user) {
@@ -51,6 +64,7 @@ class Home extends Component {
             {portfolio[0] 
                 ? <Portfolio 
                     portfolio={portfolio} 
+                    priceArray={priceArray}
                     getStock={this.props.getStock} /> 
                 : <p>Portfolio</p>
             }
